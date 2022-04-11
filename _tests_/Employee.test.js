@@ -1,6 +1,4 @@
-
-
-const employee = require('../employee');
+const employee = require('../lib/employee');
 
 test('Creates an Employee Profile', () => {
     const employeeName = new employee('name');
@@ -17,5 +15,5 @@ test('Employee Email', () => {
 });
 
 getName();
-getID();
+getId();
 getEmail();
