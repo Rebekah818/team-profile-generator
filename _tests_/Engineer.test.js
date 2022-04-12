@@ -13,7 +13,3 @@ test('Engineer Email', () => {
     const engineerEmail = new engineerEmail('Email');
     expect(engineer.email).toBe(expect.any(string));
 });
-
-getName();
-getID();
-getEmail();

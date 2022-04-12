@@ -14,6 +14,3 @@ test('Manager Email', () => {
     expect(manager.email).toBe(expect.any(string));
 });
 
-getName();
-getID();
-getEmail();
