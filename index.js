@@ -25,9 +25,9 @@ function runInquirer() {
     },
     {
         type: "list",
-        message: "What is your title?",
+        message: "What is your role?",
         choices: ["Manager", "Engineer", "Intern"],
-        name: "title"
+        name: "Role"
 
     }];
 
@@ -74,8 +74,7 @@ function runInquirerIntern() {
 
 async function run() {
     let employeeArray = [];
-    const maxTimes = 5;
-    for (i = 0; i < maxTimes; i++) {
+    for (i = 0; i < employeeArray.length; i++) {
         const promise = new Promise((resolve, reject) => {
             runInquirer()
                 .then(function ({ name, id, email}) {
