@@ -77,7 +77,7 @@ async function run() {
     for (i = 0; i < employeeArray.length; i++) {
         const promise = new Promise((resolve, reject) => {
             runInquirer()
-                .then(function ({ name, id, email}) {
+                .then(function ({ name, id, email }) {
                     if (this.constructor.name === "Manager") {
                         runInquirerManager().then(function ({ officeNumber }) {
                             this.employee = new Manager(name, id, email, officeNumber);
@@ -112,11 +112,13 @@ async function run() {
         const result = await promise;
         console.log(result);
 
-    } 
+
+    }
     fs.writeFile('newfile.html', returnHtml(employeeArray), function (err) {
-    if (err) throw err;
-    console.log('html created.');
-});
+        if (err) throw err;
+        console.log('html created.');
+
+    });
 
 }
 
