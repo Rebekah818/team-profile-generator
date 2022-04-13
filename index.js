@@ -5,7 +5,8 @@ const Employee = require("./lib/employee")
 const Manager = require("./lib/manager")
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
-const { resolveObjectURL } = require("buffer");
+const returnHtml = require("./src/index");
+
 
 function runInquirer() {
     const promptArray = [{
@@ -69,31 +70,33 @@ function runInquirerIntern() {
         .prompt(promptArray);
 };
 
+
+
 async function run() {
     let employeeArray = [];
     const maxTimes = 5;
     for (i = 0; i < maxTimes; i++) {
         const promise = new Promise((resolve, reject) => {
             runInquirer()
-                .then(function ({ name, id, email, title }) {
-                    if (title === "Manager") {
+                .then(function ({ name, id, email}) {
+                    if (this.constructor.name === "Manager") {
                         runInquirerManager().then(function ({ officeNumber }) {
-                            this.employee = new Manager(name, id, email, officeNumber, title);
+                            this.employee = new Manager(name, id, email, officeNumber);
                             console.log(officeNumber);
-                            employeeArray.push(employee);
+                            employeeArray.push(Employee);
                             resolve('done');
                         });
-                    } else if (title === "Engineer") {
+                    } else if (this.constructor.name === "Engineer") {
                         runInquirerEngineer().then(function ({ github }) {
-                            this.employee = new Engineer(name, id, email, github, title);
+                            this.employee = new Engineer(name, id, email, github);
                             console.log(github);
-                            employeeArray.push(employee);
+                            employeeArray.push(Employee);
                         })
-                    } else if (title === "Intern") {
+                    } else if (this.constructor.name === "Intern") {
                         runInquirerIntern().then(function ({ school }) {
-                            this.employee = new Intern(name, id, email, school, title);
+                            this.employee = new Intern(name, id, email, school);
                             console.log(school);
-                            employeeArray.push(employee);
+                            employeeArray.push(Employee);
                             resolve("done");
                         });
                     }
@@ -110,92 +113,15 @@ async function run() {
         const result = await promise;
         console.log(result);
 
-    }
-}
-
-function getCardHtml() {
-    let html = "";
-    for (l = 0; l < maxTimes; l++) {
-        console.log(employeeArray[l])
-        html += `<div class= "card justify-content-center align-items-center" style="width: 18rem;" >
-        <div class="col card-header">
-            <h3>${employeeArray[l].name}</h3>
-        </div>
-        <div class="col card-header">
-            <h3>${employeeArray[l].title}</h3>
-        </div>
-
-        <ul class="list-group list-group-flush text">
-            <li class="list-group-item">ID: ${employeeArray[l].id}</li>
-             <li class="list-group-item">email: ${employeeArray[l].email}</li>
-             <li class="list-group-item">: ${displayTitle(employeeArray[l])}</li>
-        </ul>
-
-        </div >`
-    }
-    return html;
-}
-
-
-let html = `< !DOCTYPE html >
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="X-UA-Compatible" content="ie=edge">
-                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-                        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-                        <title>Document</title>
-                        <style>
-                            .row {
-                                display: flex;
-                                flex-wrap: wrap;
-                                justify-content: center;
-                                margin-top: 20px;
-                                margin-bottom: 20px;
-                            }
-                            .card {
-                                padding: 15px;
-                                border-radius: 6px;
-                                background-color: white;
-                                color: lightskyblue;
-                                margin: 15px;
-                            }
-                            .text {
-                                padding: 15px;
-                                border-radius: 6px;
-                                background-color: lightskyblue;
-                                color: black;
-                                margin: 15px;
-                            }
-                            .col {
-                                flex: 1;
-                                text-align: center;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <nav class="navbar navbar-dark bg-dark justify-content-center align-items-center">
-                            <span class="navbar-brand mb-0 h1">
-                                <h1>My Team</h1>
-                            </span>
-                        </nav>
-                        <div class="row">
-                            ${getCardHtml()}
-                        </div>
-                    </body>
-
-</html>
-`;
-
-
-
-
-console.log(html);
-const fs = require("fs");
-fs.writeFile('newfile.html', html, function (err) {
+    } 
+    fs.writeFile('newfile.html', returnHtml(employeeArray), function (err) {
     if (err) throw err;
     console.log('html created.');
 });
+
+}
+
+
+
 
 run()

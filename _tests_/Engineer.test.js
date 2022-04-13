@@ -1,15 +1,23 @@
 const Engineer = require("../lib/engineer");
 
-test('Creates an Engineer Profile', () => {
-    const engineerName = new engineerName('name');
-    expect(engineer.name).toBe(expect.any(string));
-});
-test('Creates Engineer ID', () => {
-    const engineerId = new engineerId('ID');
-    expect(engineer.id).toBe(expect.any(string));
+
+
+describe('test Engineer', () => {
+    const engineerName = "Sam"
+    const engineerEmail = "sam123@asd.com"
+    const engineerId = 1
+    const engineerGithub = "engineer23"
+    const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
+
+    test('Test Engineer github method', () => {
+        expect(engineer.getGitHub()).toBe(engineerGithub);
+    });
+    test('Test engineer github', () => {
+        expect(engineer.github).toBe(engineerGithub);
+    });
+
+    test('Test Engineer role', () => {
+        expect(engineer.getRole()).toBe(engineer.constructor.name);
+    });
 });
 
-test('Engineer Email', () => {
-    const engineerEmail = new engineerEmail('Email');
-    expect(engineer.email).toBe(expect.any(string));
-});
