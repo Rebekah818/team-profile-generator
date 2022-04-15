@@ -2,25 +2,26 @@ const Intern = require("../lib/intern");
 
 describe('test intern', () => {
 
-    const engineerName = "Sam"
-    const engineerEmail = "sam123@asd.com"
-    const engineerId = 1
-    const engineerGithub = "engineer23"
-    const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
+    const internName = "Sam"
+    const internEmail = "sam123@asd.com"
+    const internId = 1
+    const intern = new Intern(internName, internId, internEmail);
     test('Creates Intern ID', () => {
-        const internId = new internId('ID');
-        expect(intern.id).toBe(expect.any(5));
+
+        expect(intern.id).toBe(internId);
 
 
-        test('Creates an Intern Profile', () => {
-            const internName = new internName('name');
-            expect(intern.name).toBe('sally');
-        });
 
     });
+
+    test('Creates an Intern Profile', () => {
+
+        expect(intern.name).toBe(internName);
+    });
+    
     test('Intern Email', () => {
-        const internEmail = new internEmail('Email');
-        expect(intern.email).toBe('sally');
+
+        expect(intern.email).toBe(internEmail);
 
     });
 
