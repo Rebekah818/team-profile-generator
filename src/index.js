@@ -6,7 +6,7 @@ function displayVariation (employee) {
         case "Intern":
             return `School attending: ${employee.getSchool()}`;
         default:
-            return `Github: ${employee.getGithub()}`;
+            return `Github: ${employee.getGitHub()}`;
          
 
         
@@ -30,7 +30,7 @@ function getCardHtml(employeeArray) {
         <ul class="list-group list-group-flush text">
             <li class="list-group-item">ID: ${employeeArray[i].id}</li>
              <li class="list-group-item">email: ${employeeArray[i].email}</li>
-             <li class="list-group-item">: ${displayVariation(employeeArray[i])}</li>
+             <li class="list-group-item"> ${displayVariation(employeeArray[i])}</li>
         </ul>
 
         </div >`

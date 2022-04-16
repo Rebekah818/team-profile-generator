@@ -22,6 +22,13 @@ This app is used to keep track of employees and their information.
 Rebekah McDevitt
 # Links
 https://github.com/Rebekah818/team-profile-generator
+Walk through video links:
+https://drive.google.com/file/d/1308s3JqYLBgy2-ccPzsUS1QppKBRPiK4/view
+https://drive.google.com/file/d/18suTcWFinUB-XARHpIZWRHCw2NGQSOSD/view
+
+# Screenshots
+
+![ScreenShot](./assets/team-profile-screenshot.PNG)
 # Tests
 This project uses Jest to test the data.
 # Table of Contents
@@ -41,6 +48,8 @@ Contributors
  <br>
 Links
   <br> 
+Screenshots
+<br>
 Tests
   <br> 
 Table of Contents

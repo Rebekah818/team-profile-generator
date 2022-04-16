@@ -70,59 +70,80 @@ function runInquirerIntern() {
         .prompt(promptArray);
 };
 
+function addTeamMember() {
+    const promptArray = [{
+        type: "list",
+        message: "Would you like to add another team member?",
+        name: 'addNewMember',
+        choices: [
+            "add new member", "quit"
+        ]
+    }];
 
+    return inquirer
+        .prompt(promptArray);
+};
+
+let employeeArray = [];
 
 async function run() {
-    let employeeArray = [];
-    for (i = 0; i < employeeArray.length; i++) {
-        const promise = new Promise((resolve, reject) => {
-            runInquirer()
-                .then(function ({ name, id, email }) {
-                    if (this.constructor.name === "Manager") {
-                        runInquirerManager().then(function ({ officeNumber }) {
-                            this.employee = new Manager(name, id, email, officeNumber);
-                            console.log(officeNumber);
-                            employeeArray.push(Employee);
-                            resolve('done');
-                        });
-                    } else if (this.constructor.name === "Engineer") {
-                        runInquirerEngineer().then(function ({ github }) {
-                            this.employee = new Engineer(name, id, email, github);
-                            console.log(github);
-                            employeeArray.push(Employee);
-                        })
-                    } else if (this.constructor.name === "Intern") {
-                        runInquirerIntern().then(function ({ school }) {
-                            this.employee = new Intern(name, id, email, school);
-                            console.log(school);
-                            employeeArray.push(Employee);
-                            resolve("done");
-                        });
-                    }
 
-                }).catch(function (err) {
-                    console.log("error found");
-                    console.log(err);
+    runInquirer()
+        .then( async function ({ name, id, email, Role }) {
+            if (Role === "Manager") {
+              await  runInquirerManager().then(function ({ officeNumber }) {
+                    const manager = new Manager(name, id, email, officeNumber);
+                    console.log(officeNumber);
+                    employeeArray.push(manager);
 
-
-
+                });
+            } else if (Role === "Engineer") {
+               await runInquirerEngineer().then(function ({ github }) {
+                    const engineer = new Engineer(name, id, email, github);
+                    console.log(github);
+                    employeeArray.push(engineer);
                 })
+            } else if (Role === "Intern") {
+              await  runInquirerIntern().then(function ({ school }) {
+                    const intern = new Intern(name, id, email, school);
+                    console.log(school);
+                    employeeArray.push(intern);
 
-        })
-        const result = await promise;
-        console.log(result);
+                }
+
+                );
+            }
+            addTeamMember().then(function ({ addNewMember }) {
+                if (addNewMember === "add new member") {
+                    return run()
+
+                } else {
+
+                    fs.writeFile('newfile.html', returnHtml(employeeArray), function (err) {
+                        if (err) throw err;
+                        console.log('html created.');
+                    });
+
+                }
+            }).catch(function (err) {
+                console.log("error found");
+                console.log(err);
 
 
-    }
-    fs.writeFile('newfile.html', returnHtml(employeeArray), function (err) {
-        if (err) throw err;
-        console.log('html created.');
 
-    });
+            })
+
+
+
+
+        });
+
+
+
+
+
+
 
 }
 
-
-
-
-run()
+run();
